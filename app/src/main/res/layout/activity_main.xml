@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <TextView
+            android:background="@color/colorPrimary"
+            android:id="@+id/onPairedTextView"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:text="@string/disconnected"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:background="@color/colorPrimary"
+            android:id="@+id/pressureChangedTextView"
+            android:textColor="@android:color/white"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/onPairedTextView"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:background="@color/colorPrimary"
+            android:layout_margin="16dp"
+            android:visibility="invisible"
+            android:padding="8dp"
+            android:id="@+id/connectButton"
+            android:textColor="@android:color/white"
+            android:text="@string/connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pressureChangedTextView"/>
+
+    <Button
+            android:background="@color/colorAccent"
+            android:layout_margin="16dp"
+            android:id="@+id/disconnectButton"
+            android:padding="8dp"
+            android:visibility="invisible"
+            android:textColor="@android:color/white"
+            android:text="@string/disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/connectButton"
+            android:layout_below="@id/pressureChangedTextView"/>
+
+    <Button
+            android:background="@color/colorAccent"
+            android:layout_margin="16dp"
+            android:visibility="invisible"
+            android:padding="8dp"
+            android:id="@+id/sendStopCommandButton"
+            android:textColor="@android:color/white"
+            android:text="@string/stop_command"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/connectButton"/>
+
+    <Button
+            android:background="@color/colorPrimary"
+            android:layout_margin="16dp"
+            android:id="@+id/abortStopCommandButton"
+            android:padding="8dp"
+            android:visibility="invisible"
+            android:textColor="@android:color/white"
+            android:text="@string/abort_stop_command"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/sendStopCommandButton"
+            android:layout_below="@id/connectButton"/>
+
+    <TextView
+            android:background="@color/colorPrimary"
+            android:id="@+id/timerTextView"
+            android:textColor="@android:color/white"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/abortStopCommandButton"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:background="@color/colorAccent"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:id="@+id/button1"
+            android:textColor="@android:color/white"
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timerTextView"/>
+
+    <Button
+            android:background="@color/colorPrimary"
+            android:layout_margin="16dp"
+            android:id="@+id/button2"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:text="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/button1"
+            android:layout_below="@id/timerTextView"/>
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"/>
+</RelativeLayout>
