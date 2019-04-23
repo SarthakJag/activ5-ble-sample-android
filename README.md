@@ -12,6 +12,8 @@ Android Studio
 
 An Android device with BLE capabilities
 
+Minimum SDK version = 19
+
 ## Installation
 
 Open 'activ5-sample-android-ble-library'
