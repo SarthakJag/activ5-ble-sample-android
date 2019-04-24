@@ -113,6 +113,12 @@ Disconnecting the device happens with calling onDisconnected(device: BluetoothDe
 device.evergreenMode = true
 ```    
 
+Call tare with the tare() method.
+
+```bash
+device.tare()
+```   
+
 ## Disconnect a device
 
 Disconnecting the device happens with calling disconnect() function
@@ -142,19 +148,6 @@ func sendCommand(_ command: A5Command)
 func startIsometric()
 func stop()
 func disconnect()
-```
-
-Available Commands
-
-```bash
-
-enum class A5BluetoothCommand(val command: String) {
-    DO_HANDSHAKE("TVGTIME"),
-    START_ISOMETRIC("ISOM!"),
-    START_HEART_RATE("HR!"),
-    TARE("TARE!"),
-    STOP("STOP!");
-}
 ```
 
 # A5DeviceManager
