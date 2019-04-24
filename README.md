@@ -79,7 +79,7 @@ func searchCompleted() {
 Connecting a device is easy. You just need to select the right one from the devices found and call device.startIsometric
 
 ```bash
-device?.startIsometric(context)
+device.startIsometric(context)
 ```
 
 When a device has been connected the delegate function onConnected is going to be called.
@@ -144,9 +144,9 @@ func deviceDisconnected(device: A5Device) {
 Device Communication
 
 ```bash
-func sendCommand(_ command: A5Command)
 func startIsometric()
 func stop()
+fun tare()
 func disconnect()
 ```
 
