@@ -8,11 +8,11 @@ To run the example project, clone or download the repo.
 
 ## Requirements
 
-Android Studio
+Android Studio 3.4.0 or above
 
 An Android device with BLE capabilities
 
-Minimum SDK version = 19
+Android SDK version 19 or above
 
 ## Installation
 
@@ -24,11 +24,9 @@ Build and run project.
 
 ## How to include it in your own project
 
-1. In Android Studio assemble the aar file by using the gradle plugin and clicking on: :a5bluetoothlibrary -> Tasks -> build -> assemble
-2. Copy the aar file from a5bluetoothlibrary -> build -> outputs -> aar -> a5bluetoothlibrary-release-aar
-3. Paste in the libs folder of your app
-4. Add this code to dependencies in your app:gradle: implementation (name: 'a5bluetoothlibrary-release', ext:'aar')
-5. Add this code in the same gradle: 
+1. Paste "a5bluetoothlibrary-release.aar" in the libs folder of your app
+2. Add this code to dependencies in your app:gradle: implementation (name: 'a5bluetoothlibrary-release', ext:'aar')
+3. Add this code in the same gradle: 
 repositories {
     flatDir {
         dirs 'libs'
@@ -41,13 +39,13 @@ repositories {
 
 ## Framework initialisation
 
-In order to initialize the framework you need to call the following function. The best place to call it is in your Application class or somewhere a bit before calling Bluetooth related functions.
+In order to initialize the framework you need to call the following function. The best place to call it is in your Application class or somewhere before calling Bluetooth related functions.
 
 ```bash
 A5DeviceManager.initializeDeviceManager()
 ```
 
-You also need to set the callback:
+You also need to set the callback, on which you will receive bluetooth events:
 ```bash
 A5DeviceManager.setCallback(this)
 ```
@@ -82,7 +80,7 @@ Connecting a device is easy. You just need to select the right one from the devi
 device.startIsometric(context)
 ```
 
-When a device has been connected the delegate function onConnected is going to be called.
+When a device has been connected the delegate function deviceConnected is going to be called.
 
 ```bash
 func deviceConnected(device: A5Device) {
@@ -90,8 +88,8 @@ func deviceConnected(device: A5Device) {
 }
 ```    
 
-The isometric data is going to be received in the function onPressureChanged(device: BluetoothDevice, pressureValue: Int). 
-The value received is in Newtons.
+The isometric data is going to be received in the function didReceiveIsometric(device: BluetoothDevice, pressureValue: Int). 
+The value received is in Newtons and is returned on every 100 ms.
 
 ```bash
 func didReceiveIsometric(device: A5Device, value: Int) {
@@ -106,14 +104,13 @@ In order to save device battery it is recommended to call stop() function. That 
 device.stop()
 ```    
 
-NB: After 7 minutes in stop mode the device will switch switch off If you don't want the device to timeout after 7 minutes you can switch on evergreen mode. This will keep the device awake.
-Disconnecting the device happens with calling onDisconnected(device: BluetoothDevice) function
+NB: After 7 minutes in stop mode the device will switch switch off. If you don't want the device to timeout after 7 minutes you can switch on evergreen mode. This will keep the device awake.
 
 ```bash
 device.evergreenMode = true
 ```    
 
-Call tare with the tare() method.
+If you want to include functionality to calibrate Activ5 you can use the Tare function. Call tare with the tare() method.
 
 ```bash
 device.tare()
@@ -146,7 +143,7 @@ Device Communication
 ```bash
 func startIsometric()
 func stop()
-fun tare()
+func tare()
 func disconnect()
 ```
 
