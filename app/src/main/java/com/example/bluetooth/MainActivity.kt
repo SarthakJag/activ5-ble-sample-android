@@ -10,10 +10,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import a5.com.a5bluetoothlibrary.A5BluetoothCallback
-import a5.com.a5bluetoothlibrary.A5BluetoothCommand
-import a5.com.a5bluetoothlibrary.A5Device
 import a5.com.a5bluetoothlibrary.A5DeviceManager
+import a5.com.a5bluetoothlibrary.A5BluetoothCallback
+import a5.com.a5bluetoothlibrary.A5Device
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -43,10 +42,10 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         }
     }
 
-    override fun onWriteCompleted(device: A5Device) {
+    override fun onWriteCompleted(device: A5Device, value: String) {
     }
 
-    override fun didReceiveMessage(device: A5Device, message: String) {
+    override fun didReceiveMessage(device: A5Device, message: String, messageType: String) {
     }
 
     override fun deviceConnected(device: A5Device) {
@@ -92,8 +91,11 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         requestPermission()
 
         connectButton.setOnClickListener {
-            device?.startIsometric(this)
-            progressBar.visibility = View.VISIBLE
+            val device = this.device
+            if (device != null) {
+                A5DeviceManager.connect(this, device)
+                progressBar.visibility = View.VISIBLE
+            }
         }
 
         disconnectButton.setOnClickListener {
@@ -107,18 +109,13 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         }
 
         abortStopCommandButton.setOnClickListener {
-            device?.sendCommand(A5BluetoothCommand.START_ISOMETRIC.command)
+            device?.startIsometric()
             setSendStopButtonsVisibility(true)
             stopTimer()
         }
 
         button1.setOnClickListener {
-            device?.disconnect()
-            device?.startIsometric(this)
-        }
-
-        button2.setOnClickListener {
-            device?.sendCommand(A5BluetoothCommand.TARE.command)
+            device?.startIsometric()
         }
     }
 
@@ -240,7 +237,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
             }
 
             override fun onFinish() {
-                timerTextView.text = getString(R.string.seven_minutes_elapsed)
+                timerTextView.text = "7 mins elapsed"
             }
         }.start()
     }

@@ -29,7 +29,6 @@
     <Button
             android:background="@color/colorPrimary"
             android:layout_margin="16dp"
-            android:visibility="invisible"
             android:padding="8dp"
             android:id="@+id/connectButton"
             android:textColor="@android:color/white"
@@ -92,7 +91,7 @@
             android:padding="8dp"
             android:id="@+id/button1"
             android:textColor="@android:color/white"
-            android:text="1"
+            android:text="start isometric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/timerTextView"/>
@@ -101,6 +100,7 @@
             android:background="@color/colorPrimary"
             android:layout_margin="16dp"
             android:id="@+id/button2"
+            android:visibility="invisible"
             android:padding="8dp"
             android:textColor="@android:color/white"
             android:text="2"
