@@ -155,6 +155,7 @@ func disconnect()
 ## Properties
 
 ```bash
+    private lateinit var bluetoothManager: BluetoothManager
     private lateinit var bluetoothAdapter: BluetoothAdapter
     private var bluetoothGatt: BluetoothGatt? = null
 
@@ -181,6 +182,7 @@ func disconnect()
 setCallback(A5BluetoothCallback)
 scanForDevices()
 connect()
+fun isDeviceConnected(device: A5Device): Boolean
 ```
 
 ## A5BluetoothCallback
