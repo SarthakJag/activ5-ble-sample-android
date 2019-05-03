@@ -1,5 +1,12 @@
 # activ5-sample-android-ble-library
 
+## QA how the app works
+
+When tou launch it the app searches for 30 seconds for a device, once it is found a toast message is shown "done".
+At this point you can click on connect - once connected the name and address will be shown.
+At this point you can click start isometric to receive data.
+You have 3 more buttons - Disconnect, stop command, and abort stop command.
+
 This is Bluetooth low energy library for android
 
 ## Example
