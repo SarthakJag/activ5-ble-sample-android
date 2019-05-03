@@ -74,21 +74,24 @@ func searchCompleted() {
 
 ## Connect to a device
 
-Connecting a device is easy. You just need to select the right one from the devices found and call device.startIsometric
+Connecting a device is easy. You just need to call
 
 ```bash
-device.startIsometric(context)
+A5DeviceManager.connect(context, device)
 ```
 
 When a device has been connected the delegate function deviceConnected is going to be called.
 
 ```bash
 func deviceConnected(device: A5Device) {
-// Action to do when a device is connected. Probably show the user that connection is successful and then call 
+// Action to do when a device is connected. Probably ask for isometric data
 }
 ```    
+```bash
+device.startIsometric()
+```
 
-The isometric data is going to be received in the function didReceiveIsometric(device: BluetoothDevice, pressureValue: Int). 
+The isometric data is going to be received in the function didReceiveIsometric(device: A5Device, value: Int). 
 The value received is in Newtons and is returned on every 100 ms.
 
 ```bash
@@ -193,7 +196,7 @@ scanForDevices()
 
     fun didReceiveIsometric(device: A5Device, value: Int)
 
-    fun onWriteCompleted(device: A5Device)
+    fun onWriteCompleted(device: A5Device, value: String)
 
     fun on133Error()
 
