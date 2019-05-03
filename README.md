@@ -167,11 +167,11 @@ func disconnect()
 
     private var countDownTimer: CountDownTimer? = null
 
-    private var isConnected: Boolean = false
-
     private var protocolVersion: String? = null
 
     private var currentPressure = 0
+
+    private var isIsometric = false
 ```
 
 
@@ -180,6 +180,7 @@ func disconnect()
 ```bash
 setCallback(A5BluetoothCallback)
 scanForDevices()
+connect()
 ```
 
 ## A5BluetoothCallback
@@ -192,7 +193,7 @@ scanForDevices()
 
     fun deviceDisconnected(device: A5Device)
 
-    fun didReceiveMessage(device: A5Device, message: String)
+    fun didReceiveMessage(device: A5Device, message: String, messageType: String)
 
     fun didReceiveIsometric(device: A5Device, value: Int)
 
