@@ -16,6 +16,7 @@ import a5.com.a5bluetoothlibrary.A5Device
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -26,11 +27,14 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     private var counter: Int = 0
     private var countDownTimer: CountDownTimer? = null
 
+    private lateinit var deviceAdapter: DeviceAdapter
+
     override fun bluetoothIsSwitchedOff() {
+        Toast.makeText(this, "bluetooth is switched off", Toast.LENGTH_LONG).show()
     }
 
     override fun searchCompleted() {
-        progressBar.visibility = View.GONE
+        Toast.makeText(this, "search completed", Toast.LENGTH_LONG).show()
     }
 
     override fun didReceiveIsometric(device: A5Device, value: Int) {
@@ -52,7 +56,6 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         this.device = device
 
         runOnUiThread {
-            progressBar.visibility = View.GONE
             setConnectDisconnectButtonsVisibility(false)
             setSendStopButtonsVisibility(true)
             onPairedTextView.text =
@@ -64,9 +67,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     }
 
     override fun deviceFound(device: A5Device) {
-        this.device = device
-        progressBar.visibility = View.INVISIBLE
-        Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
+        deviceAdapter.addDevice(device)
     }
 
     override fun deviceDisconnected(device: A5Device) {
@@ -89,12 +90,12 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         setContentView(R.layout.activity_main)
 
         requestPermission()
+        initRecyclerView()
 
         connectButton.setOnClickListener {
             val device = this.device
             if (device != null) {
                 A5DeviceManager.connect(this, device)
-                progressBar.visibility = View.VISIBLE
             }
         }
 
@@ -114,9 +115,31 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
             stopTimer()
         }
 
-        button1.setOnClickListener {
+        startIsometricButton.setOnClickListener {
             device?.startIsometric()
         }
+
+        scanDevices.setOnClickListener {
+            deviceAdapter.clearDevices()
+            device?.disconnect()
+            connectButton.visibility = View.INVISIBLE
+
+            A5DeviceManager.scanForDevices()
+        }
+    }
+
+    fun deviceSelected(device: A5Device) {
+        this.device = device
+        connectButton.visibility = View.VISIBLE
+        Toast.makeText(this, "device selected: " + device.device.name, Toast.LENGTH_LONG).show()
+    }
+
+    private fun initRecyclerView() {
+        deviceAdapter = DeviceAdapter(this)
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = deviceAdapter
     }
 
     private fun requestPermission() {
@@ -237,7 +260,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
             }
 
             override fun onFinish() {
-                timerTextView.text = "7 mins elapsed"
+                timerTextView.text = getString(R.string.seven_minutes_elapsed)
             }
         }.start()
     }

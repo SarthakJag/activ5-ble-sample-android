@@ -6,11 +6,17 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_height="100dp"/>
+
     <TextView
             android:background="@color/colorPrimary"
             android:id="@+id/onPairedTextView"
             android:layout_margin="16dp"
             android:padding="8dp"
+            android:layout_below="@id/recyclerView"
             android:text="@string/disconnected"
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
@@ -21,15 +27,17 @@
             android:id="@+id/pressureChangedTextView"
             android:textColor="@android:color/white"
             android:layout_margin="16dp"
+            android:layout_toEndOf="@id/onPairedTextView"
             android:padding="8dp"
             android:layout_width="wrap_content"
-            android:layout_below="@id/onPairedTextView"
+            android:layout_below="@id/recyclerView"
             android:layout_height="wrap_content"/>
 
     <Button
             android:background="@color/colorPrimary"
             android:layout_margin="16dp"
             android:padding="8dp"
+            android:visibility="invisible"
             android:id="@+id/connectButton"
             android:textColor="@android:color/white"
             android:text="@string/connect"
@@ -89,29 +97,23 @@
             android:background="@color/colorAccent"
             android:layout_margin="16dp"
             android:padding="8dp"
-            android:id="@+id/button1"
+            android:id="@+id/startIsometricButton"
+            android:layout_toEndOf="@id/timerTextView"
             android:textColor="@android:color/white"
-            android:text="start isometric"
+            android:text="@string/start_isometric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/timerTextView"/>
+            android:layout_below="@id/abortStopCommandButton"/>
 
     <Button
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:layout_margin="16dp"
-            android:id="@+id/button2"
-            android:visibility="invisible"
             android:padding="8dp"
+            android:id="@+id/scanDevices"
+            android:layout_toEndOf="@id/startIsometricButton"
             android:textColor="@android:color/white"
-            android:text="2"
+            android:text="@string/scan_devices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/button1"
-            android:layout_below="@id/timerTextView"/>
-
-    <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_centerInParent="true"/>
+            android:layout_below="@id/abortStopCommandButton"/>
 </RelativeLayout>
