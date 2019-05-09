@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     private lateinit var deviceAdapter: DeviceAdapter
 
     override fun bluetoothIsSwitchedOff() {
-        Toast.makeText(this, "bluetooth is switched off", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "bluetooth is switched off", Toast.LENGTH_SHORT).show()
     }
 
     override fun searchCompleted() {
-        Toast.makeText(this, "search completed", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "search completed", Toast.LENGTH_SHORT).show()
     }
 
     override fun didReceiveIsometric(device: A5Device, value: Int) {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
             onPairedTextView.text =
                 String.format(
                     Locale.US, "Device name: %s\nDevice address: %s",
-                    device.device.address, device.device.name
+                    device.device.name, device.device.address
                 )
         }
     }
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     fun deviceSelected(device: A5Device) {
         this.device = device
         connectButton.visibility = View.VISIBLE
-        Toast.makeText(this, "device selected: " + device.device.name, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "device selected: " + device.device.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun initRecyclerView() {
