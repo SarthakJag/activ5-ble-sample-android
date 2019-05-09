@@ -2,7 +2,7 @@
 
 ## QA how the app works
 
-When tou launch it the app searches for 30 seconds for a device, once it is found a toast message is shown "done".
+When you launch it the app searches for 30 seconds for a device, once it is found a toast message is shown "done".
 At this point you can click on connect - once connected the name and address will be shown.
 At this point you can click start isometric to receive data.
 You have 3 more buttons - Disconnect, stop command, and abort stop command.
@@ -114,7 +114,7 @@ In order to save device battery it is recommended to call stop() function. That 
 device.stop()
 ```    
 
-NB: After 7 minutes in stop mode the device will switch switch off. If you don't want the device to timeout after 7 minutes you can switch on evergreen mode. This will keep the device awake.
+NB: After 7 minutes in stop mode the device will switch off. If you don't want the device to timeout after 7 minutes you can switch on evergreen mode. This will keep the device awake.
 
 ```bash
 device.evergreenMode = true
@@ -217,6 +217,6 @@ fun isDeviceConnected(device: A5Device): Boolean
 
 Haris Kurbardovikj
 
-# Licence
+# License
 
 Activ5-sample-android-ble-library is available under the MIT license. See the LICENSE file for more info.
