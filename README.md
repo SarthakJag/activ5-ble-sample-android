@@ -81,6 +81,7 @@ func searchCompleted() {
 
 ## Connect to a device
 
+You can only connect to one device at a time.
 Connecting a device is easy. You just need to call
 
 ```bash
