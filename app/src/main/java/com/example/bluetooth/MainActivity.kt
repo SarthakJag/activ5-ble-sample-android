@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         runOnUiThread {
             pressureChangedTextView.text =
                 String.format(
-                    Locale.US, "Pressure Value: %d", value
+                    Locale.US, "%s: %d", device.device.name, value
                 )
         }
     }
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     }
 
     override fun deviceDisconnected(device: A5Device) {
+        device.stop()
         runOnUiThread {
             onPairedTextView.text = getString(R.string.disconnected)
             setConnectDisconnectButtonsVisibility(true)
