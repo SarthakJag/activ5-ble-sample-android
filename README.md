@@ -203,8 +203,6 @@ fun isDeviceConnected(device: A5Device): Boolean
 
     fun deviceDisconnected(device: A5Device)
 
-    fun didReceiveMessage(device: A5Device, message: String, messageType: String)
-
     fun didReceiveIsometric(device: A5Device, value: Int)
 
     fun onWriteCompleted(device: A5Device, value: String)
