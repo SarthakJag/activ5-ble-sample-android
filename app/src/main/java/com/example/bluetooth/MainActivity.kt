@@ -111,6 +111,10 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
             device?.startIsometric()
         }
 
+        tareButton.setOnClickListener {
+            device?.tare()
+        }
+
         scanDevices.setOnClickListener {
             connectedDeviceMap.clear()
             deviceAdapter.clearDevices()

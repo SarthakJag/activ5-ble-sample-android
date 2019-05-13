@@ -14,7 +14,7 @@
     <TextView
             android:background="@color/colorPrimary"
             android:id="@+id/pressureChangedTextView1"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:padding="8dp"
             android:layout_below="@id/recyclerView"
             android:textColor="@android:color/white"
@@ -25,7 +25,7 @@
             android:background="@color/colorPrimary"
             android:id="@+id/pressureChangedTextView2"
             android:textColor="@android:color/white"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:layout_toEndOf="@id/pressureChangedTextView1"
             android:padding="8dp"
             android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
 
     <Button
             android:background="@color/colorPrimary"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:padding="8dp"
             android:id="@+id/connectButton"
             android:textColor="@android:color/white"
@@ -45,7 +45,7 @@
 
     <Button
             android:background="@color/colorAccent"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:id="@+id/disconnectButton"
             android:padding="8dp"
             android:textColor="@android:color/white"
@@ -57,7 +57,7 @@
 
     <Button
             android:background="@color/colorAccent"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:padding="8dp"
             android:id="@+id/sendStopCommandButton"
             android:textColor="@android:color/white"
@@ -68,7 +68,7 @@
 
     <Button
             android:background="@color/colorPrimary"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:id="@+id/abortStopCommandButton"
             android:padding="8dp"
             android:textColor="@android:color/white"
@@ -79,9 +79,10 @@
             android:layout_below="@id/connectButton"/>
 
     <Button
-            android:background="@color/colorAccent"
-            android:layout_margin="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
+            android:layout_marginStart="8dp"
             android:id="@+id/startIsometricButton"
             android:textColor="@android:color/white"
             android:text="@string/start_isometric"
@@ -90,11 +91,26 @@
             android:layout_below="@id/abortStopCommandButton"/>
 
     <Button
-            android:background="@color/colorAccent"
-            android:layout_margin="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
-            android:id="@+id/scanDevices"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:id="@+id/tareButton"
             android:layout_toEndOf="@id/startIsometricButton"
+            android:textColor="@android:color/white"
+            android:text="@string/tare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/abortStopCommandButton"/>
+
+    <Button
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp"
+            android:id="@+id/scanDevices"
+            android:layout_toEndOf="@id/tareButton"
             android:textColor="@android:color/white"
             android:text="@string/scan_devices"
             android:layout_width="wrap_content"
