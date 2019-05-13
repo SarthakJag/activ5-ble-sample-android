@@ -81,7 +81,7 @@ func searchCompleted() {
 
 ## Connect to a device
 
-You can only connect to one device at a time.
+You can connect up to two device at a time.
 Connecting a device is easy. You just need to call
 
 ```bash
@@ -202,8 +202,6 @@ fun isDeviceConnected(device: A5Device): Boolean
     fun deviceConnected(device: A5Device)
 
     fun deviceDisconnected(device: A5Device)
-
-    fun didReceiveMessage(device: A5Device, message: String, messageType: String)
 
     fun didReceiveIsometric(device: A5Device, value: Int)
 
