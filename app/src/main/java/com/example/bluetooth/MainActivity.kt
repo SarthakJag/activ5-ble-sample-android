@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import a5.com.a5bluetoothlibrary.A5DeviceManager
 import a5.com.a5bluetoothlibrary.A5BluetoothCallback
 import a5.com.a5bluetoothlibrary.A5Device
@@ -23,6 +22,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), A5BluetoothCallback {
 
+    private var connectedDeviceMap = mutableListOf<A5Device?>()
     private var device: A5Device? = null
     private var counter: Int = 0
     private var countDownTimer: CountDownTimer? = null
@@ -38,44 +38,37 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     }
 
     override fun didReceiveIsometric(device: A5Device, value: Int) {
-        runOnUiThread {
-            pressureChangedTextView.text =
-                String.format(
-                    Locale.US, "%s: %d", device.device.name, value
-                )
+        if (connectedDeviceMap.isNotEmpty()) {
+            if (connectedDeviceMap[0]?.device?.address == device.device.address) {
+                runOnUiThread {
+                    pressureChangedTextView1.text =
+                        String.format(
+                            Locale.US, "%s: %d", device.device.name, value
+                        )
+                }
+            } else if (connectedDeviceMap.size > 1 && connectedDeviceMap[1]?.device?.address == device.device.address) {
+                runOnUiThread {
+                    pressureChangedTextView2.text =
+                        String.format(
+                            Locale.US, "%s: %d", device.device.name, value
+                        )
+                }
+            }
         }
     }
 
     override fun onWriteCompleted(device: A5Device, value: String) {
     }
 
-    override fun didReceiveMessage(device: A5Device, message: String, messageType: String) {
-    }
-
     override fun deviceConnected(device: A5Device) {
-        this.device = device
-
-        runOnUiThread {
-            setConnectDisconnectButtonsVisibility(false)
-            setSendStopButtonsVisibility(true)
-            onPairedTextView.text =
-                String.format(
-                    Locale.US, "Device name: %s\nDevice address: %s",
-                    device.device.name, device.device.address
-                )
-        }
     }
 
     override fun deviceFound(device: A5Device) {
         deviceAdapter.addDevice(device)
+        connectedDeviceMap.add(device)
     }
 
     override fun deviceDisconnected(device: A5Device) {
-        device.stop()
-        runOnUiThread {
-            onPairedTextView.text = getString(R.string.disconnected)
-            setConnectDisconnectButtonsVisibility(true)
-        }
     }
 
     override fun on133Error() {
@@ -106,13 +99,11 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
 
         sendStopCommandButton.setOnClickListener {
             device?.stop()
-            setSendStopButtonsVisibility(false)
             startTimer()
         }
 
         abortStopCommandButton.setOnClickListener {
             device?.startIsometric()
-            setSendStopButtonsVisibility(true)
             stopTimer()
         }
 
@@ -121,9 +112,9 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         }
 
         scanDevices.setOnClickListener {
+            connectedDeviceMap.clear()
             deviceAdapter.clearDevices()
             device?.disconnect()
-            connectButton.visibility = View.INVISIBLE
 
             A5DeviceManager.scanForDevices()
         }
@@ -131,7 +122,6 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
 
     fun deviceSelected(device: A5Device) {
         this.device = device
-        connectButton.visibility = View.VISIBLE
         Toast.makeText(this, "device selected: " + device.device.name, Toast.LENGTH_SHORT).show()
     }
 
@@ -232,36 +222,14 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         }
     }
 
-    private fun setConnectDisconnectButtonsVisibility(isConnectButtonVisible: Boolean) {
-        if (isConnectButtonVisible) {
-            connectButton.visibility = View.VISIBLE
-            disconnectButton.visibility = View.INVISIBLE
-        } else {
-            connectButton.visibility = View.INVISIBLE
-            disconnectButton.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setSendStopButtonsVisibility(isSendStopButtonVisible: Boolean) {
-        if (isSendStopButtonVisible) {
-            sendStopCommandButton.visibility = View.VISIBLE
-            abortStopCommandButton.visibility = View.INVISIBLE
-        } else {
-            sendStopCommandButton.visibility = View.INVISIBLE
-            abortStopCommandButton.visibility = View.VISIBLE
-        }
-    }
-
     private fun startTimer() {
         counter = 0
         countDownTimer = object : CountDownTimer(420000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 counter++
-                timerTextView.text = String.format(Locale.US, "%d", counter)
             }
 
             override fun onFinish() {
-                timerTextView.text = getString(R.string.seven_minutes_elapsed)
             }
         }.start()
     }
