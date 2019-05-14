@@ -1,13 +1,13 @@
 # activ5-sample-android-ble-library
 
-## QA how the app works
+## Description of the Sample App using Activ5 Device APIs:
 
-When you launch it the app searches for 30 seconds for a device, once it is found a toast message is shown "done".
-At this point you can click on connect - once connected the name and address will be shown.
-At this point you can click start isometric to receive data.
-You have 3 more buttons - Disconnect, stop command, and abort stop command.
+When you launch the app, it will search for 30 seconds for a device, once device is found, you can tap on the device name to select it.
+At this point you can tap on connect. Once connected, the Activ5 device will have a green flashing LED.
+At this point you can tap "start isometric" to receive data. When you press the Activ5 device, the received force value will be shown.
+You have more buttons: disconnect, stop command, tare, and abort stop command. Tare can be used when the device is not pressed: It will set 0 force value.
 
-This is Bluetooth low energy library for android
+## Descriptions of the APIs - SDK for Activ5 Device:
 
 ## Example
 
@@ -59,7 +59,7 @@ A5DeviceManager.setCallback(this)
 
 ## Search for devices
 
-You need to search for devices in order to load the devices. Each time a new device has been found
+You need to search for devices in order to load the devices. Each time a new device will be found.
 
 ```bash
 A5DeviceManager.scanForDevices()
@@ -159,30 +159,6 @@ func disconnect()
 ```
 
 # A5DeviceManager
-
-## Properties
-
-```bash
-    private lateinit var bluetoothManager: BluetoothManager
-    private lateinit var bluetoothAdapter: BluetoothAdapter
-    private var bluetoothGatt: BluetoothGatt? = null
-
-    private var writeChar: BluetoothGattCharacteristic? = null
-    private var a5BluetoothCallback: A5BluetoothCallback? = null
-
-    private var a5Device: A5Device? = null
-
-    private var scannedDevices: ArrayList<String> = arrayListOf()
-
-    private var countDownTimer: CountDownTimer? = null
-
-    private var protocolVersion: String? = null
-
-    private var currentPressure = 0
-
-    private var isIsometric = false
-```
-
 
 ## Functionality
 
