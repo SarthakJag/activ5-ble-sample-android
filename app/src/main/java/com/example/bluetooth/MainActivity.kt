@@ -22,7 +22,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), A5BluetoothCallback {
 
-    private var connectedDeviceMap = mutableListOf<A5Device?>()
+    private var connectedDevices = mutableListOf<A5Device?>()
     private var device: A5Device? = null
     private var counter: Int = 0
     private var countDownTimer: CountDownTimer? = null
@@ -38,23 +38,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
     }
 
     override fun didReceiveIsometric(device: A5Device, value: Int) {
-        if (connectedDeviceMap.isNotEmpty()) {
-            if (connectedDeviceMap[0]?.device?.address == device.device.address) {
-                runOnUiThread {
-                    pressureChangedTextView1.text =
-                        String.format(
-                            Locale.US, "%s: %d", device.device.name, value
-                        )
-                }
-            } else if (connectedDeviceMap.size > 1 && connectedDeviceMap[1]?.device?.address == device.device.address) {
-                runOnUiThread {
-                    pressureChangedTextView2.text =
-                        String.format(
-                            Locale.US, "%s: %d", device.device.name, value
-                        )
-                }
-            }
-        }
+        manageReceiveIsometric(device, value)
     }
 
     override fun onWriteCompleted(device: A5Device, value: String) {
@@ -65,7 +49,7 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
 
     override fun deviceFound(device: A5Device) {
         deviceAdapter.addDevice(device)
-        connectedDeviceMap.add(device)
+        connectedDevices.add(device)
     }
 
     override fun deviceDisconnected(device: A5Device) {
@@ -116,11 +100,45 @@ class MainActivity : AppCompatActivity(), A5BluetoothCallback {
         }
 
         scanDevices.setOnClickListener {
-            connectedDeviceMap.clear()
-            deviceAdapter.clearDevices()
+            for (device in connectedDevices) {
+                device?.disconnect()
+            }
             device?.disconnect()
+            device = null
+            connectedDevices.clear()
+            deviceAdapter.clearDevices()
 
             A5DeviceManager.scanForDevices()
+        }
+    }
+
+    @Synchronized
+    private fun print(name: String, value: Int) {
+        runOnUiThread {
+            pressureChangedTextView1.text =
+                String.format(
+                    Locale.US, "%s: %d", name, value
+                )
+        }
+    }
+
+    @Synchronized
+    private fun print2(name: String, value: Int) {
+        runOnUiThread {
+            pressureChangedTextView2.text =
+                String.format(
+                    Locale.US, "%s: %d", name, value
+                )
+        }
+    }
+
+    private fun manageReceiveIsometric(thisDevice: A5Device, thisValue: Int) {
+        if (connectedDevices.isNotEmpty()) {
+            if (connectedDevices[0]?.device?.address == thisDevice.device.address) {
+                print(thisDevice.device.name, thisValue)
+            } else if (connectedDevices.size > 1 && connectedDevices[1]?.device?.address == thisDevice.device.address) {
+                print2(thisDevice.device.name, thisValue)
+            }
         }
     }
 
