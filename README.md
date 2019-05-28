@@ -195,4 +195,4 @@ Haris Kurbardovikj
 # License
 
 Activ5-sample-android-ble-library sample source code is available under the Apache license. See the LICENSE file for more info.
-Please contact Activbody inc. when you use the library, a5bluetoothlibrary-release.aar, for commercial purpose.
+Please contact Activbody inc. when you want to publish your application using this sdk.
